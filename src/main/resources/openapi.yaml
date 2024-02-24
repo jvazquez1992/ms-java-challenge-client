@@ -28,7 +28,7 @@ paths:
             <sup><i>(ES)</i></sup> Identificación de un cliente. Ejemplo: (CIF, Cédula, Pasaporte, RUC)
             <br><br>
             <sup><i>(EN)</i></sup> Identification of a client. Example: (CIF, ID, Passport, RUC)
-          required: false
+          required: true
           style: form
           explode: true
           schema:
@@ -77,6 +77,187 @@ paths:
             application/json;charset=UTF-8:
               schema:
                 $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - Cliente
+      summary: Save a new client in the DB
+      description: Save a new cliente in the DB
+      operationId: PostClient
+      requestBody:
+        description: Create a new client in the DB
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostClientRequest'
+      responses:
+        "200":
+          description: Cliente creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostClientResponse'
+        "400":
+          description: 400 Bad Request. The request information it's not correct.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: 401 Unauthorized.You're not authorized to perform this operation.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: 403 Forbidden. You don't have the right permissions to execute this operation.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 404 Not Found. The server cannot find the requested resource.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: 500 Internal Server Error. An error has occurred.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "502":
+          description: 502 Bad Gateway. The service unable to get a valid response.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - Cliente
+      summary: Update the client in the DB
+      description: Update the cliente in the DB
+      operationId: PutClient
+      parameters:
+        - name: personIdentification
+          in: query
+          description: |-
+            <sup><i>(ES)</i></sup> Identificación de un cliente. Ejemplo: (CIF, Cédula, Pasaporte, RUC)
+            <br><br>
+            <sup><i>(EN)</i></sup> Identification of a client. Example: (CIF, ID, Passport, RUC)
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: "0000000000"
+      requestBody:
+        description: Update the client in the DB
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutClientRequest'
+      responses:
+        "200":
+          description: Cliente actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PutClientResponse'
+        "400":
+          description: 400 Bad Request. The request information it's not correct.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: 401 Unauthorized.You're not authorized to perform this operation.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: 403 Forbidden. You don't have the right permissions to execute this operation.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 404 Not Found. The server cannot find the requested resource.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: 500 Internal Server Error. An error has occurred.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "502":
+          description: 502 Bad Gateway. The service unable to get a valid response.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - Cliente
+      summary: Delete a client
+      description: Revome a client from the DB
+      operationId: DeleteClient
+      parameters:
+        - name: personIdentification
+          in: query
+          description: |-
+            <sup><i>(ES)</i></sup> Identificación de un cliente. Ejemplo: (CIF, Cédula, Pasaporte, RUC)
+            <br><br>
+            <sup><i>(EN)</i></sup> Identification of a client. Example: (CIF, ID, Passport, RUC)
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: "0000000000"
+      responses:
+        "200":
+          description: Cliente eliminado exitosamente
+        "400":
+          description: 400 Bad Request. The request information it's not correct.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: 401 Unauthorized.You're not authorized to perform this operation.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: 403 Forbidden. You don't have the right permissions to execute this operation.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 404 Not Found. The server cannot find the requested resource.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: 500 Internal Server Error. An error has occurred.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "502":
+          description: 502 Bad Gateway. The service unable to get a valid response.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   schemas:
     GetClientResponse:
@@ -89,7 +270,6 @@ components:
             <sup><i>(ES)</i></sup> Nombres de una persona o cliente.
             <br><br>
             <sup><i>(EN)</i></sup> Names of a person or client.
-          format: ISODateTime-ISO8601 YYYY-MM-DD
         address:
           maxLength: 50
           type: string
@@ -104,6 +284,196 @@ components:
             <sup><i>(ES)</i></sup> Telefono de una persona o cliente.
             <br><br>
             <sup><i>(EN)</i></sup> Address of a person or client.
+    PostClientRequest:
+      type: object
+      properties:
+        identification:
+          maxLength: 50
+          type: string
+          description: |-
+            <sup><i>(ES)</i></sup> Identificacion de una persona.
+            <br><br>
+            <sup><i>(EN)</i></sup> Person Id.
+        names:
+          maxLength: 100
+          type: string
+          description: |-
+            <sup><i>(ES)</i></sup> Nombres de una persona o cliente.
+            <br><br>
+            <sup><i>(EN)</i></sup> Names of a person or client.
+        address:
+          maxLength: 50
+          type: string
+          description: |-
+            <sup><i>(ES)</i></sup> Dirección de una persona o cliente.
+            <br><br>
+            <sup><i>(EN)</i></sup> Address of a person or client.
+        phone:
+          maxLength: 15
+          type: string
+          description: |-
+            <sup><i>(ES)</i></sup> Telefono de una persona o cliente.
+            <br><br>
+            <sup><i>(EN)</i></sup> Address of a person or client.
+        gender:
+          maxLength: 10
+          type: string
+          description: |-
+            <sup><i>(ES)</i></sup> Genero de una persona.
+            <br><br>
+            <sup><i>(EN)</i></sup> Gender of a person.
+        birthDate:
+          type: string
+          format: date
+          description: |-
+            <sup><i>(ES)</i></sup> Fecha de nacimiento de una persona.
+            <br><br>
+            <sup><i>(EN)</i></sup> Date of birth of a person.
+        password:
+          type: string
+          description: |-
+            <sup><i>(ES)</i></sup> Contrasena de una persona
+            <br><br>
+            <sup><i>(EN)</i></sup> User password
+    PostClientResponse:
+      type: object
+      properties:
+        clientId:
+          type: number
+          description: |-
+            <sup><i>(ES)</i></sup> Identificador unico del cliente
+            <br><br>
+            <sup><i>(EN)</i></sup> Cliente unique Id
+        identification:
+          maxLength: 50
+          type: string
+          description: |-
+            <sup><i>(ES)</i></sup> Identificacion de una persona.
+            <br><br>
+            <sup><i>(EN)</i></sup> Person Id.
+        names:
+          maxLength: 100
+          type: string
+          description: |-
+            <sup><i>(ES)</i></sup> Nombres de una persona o cliente.
+            <br><br>
+            <sup><i>(EN)</i></sup> Names of a person or client.
+        address:
+          maxLength: 50
+          type: string
+          description: |-
+            <sup><i>(ES)</i></sup> Dirección de una persona o cliente.
+            <br><br>
+            <sup><i>(EN)</i></sup> Address of a person or client.
+        phone:
+          maxLength: 15
+          type: string
+          description: |-
+            <sup><i>(ES)</i></sup> Telefono de una persona o cliente.
+            <br><br>
+            <sup><i>(EN)</i></sup> Address of a person or client.
+        gender:
+          maxLength: 10
+          type: string
+          description: |-
+            <sup><i>(ES)</i></sup> Genero de una persona.
+            <br><br>
+            <sup><i>(EN)</i></sup> Gender of a person.
+        birthDate:
+          type: string
+          format: date
+          description: |-
+            <sup><i>(ES)</i></sup> Fecha de nacimiento de una persona.
+            <br><br>
+            <sup><i>(EN)</i></sup> Date of birth of a person.
+    PutClientRequest:
+      type: object
+      properties:
+        names:
+          maxLength: 100
+          type: string
+          description: |-
+            <sup><i>(ES)</i></sup> Nombres de una persona o cliente.
+            <br><br>
+            <sup><i>(EN)</i></sup> Names of a person or client.
+        address:
+          maxLength: 50
+          type: string
+          description: |-
+            <sup><i>(ES)</i></sup> Dirección de una persona o cliente.
+            <br><br>
+            <sup><i>(EN)</i></sup> Address of a person or client.
+        phone:
+          maxLength: 15
+          type: string
+          description: |-
+            <sup><i>(ES)</i></sup> Telefono de una persona o cliente.
+            <br><br>
+            <sup><i>(EN)</i></sup> Address of a person or client.
+        gender:
+          maxLength: 10
+          type: string
+          description: |-
+            <sup><i>(ES)</i></sup> Genero de una persona.
+            <br><br>
+            <sup><i>(EN)</i></sup> Gender of a person.
+        birthDate:
+          type: string
+          format: date
+          description: |-
+            <sup><i>(ES)</i></sup> Fecha de nacimiento de una persona.
+            <br><br>
+            <sup><i>(EN)</i></sup> Date of birth of a person.
+        password:
+          type: string
+          description: |-
+            <sup><i>(ES)</i></sup> Contrasena de una persona
+            <br><br>
+            <sup><i>(EN)</i></sup> User password
+    PutClientResponse:
+      type: object
+      properties:
+        clientId:
+          type: number
+          description: |-
+            <sup><i>(ES)</i></sup> Identificador unico del cliente
+            <br><br>
+            <sup><i>(EN)</i></sup> Cliente unique Id
+        names:
+          maxLength: 100
+          type: string
+          description: |-
+            <sup><i>(ES)</i></sup> Nombres de una persona o cliente.
+            <br><br>
+            <sup><i>(EN)</i></sup> Names of a person or client.
+        address:
+          maxLength: 50
+          type: string
+          description: |-
+            <sup><i>(ES)</i></sup> Dirección de una persona o cliente.
+            <br><br>
+            <sup><i>(EN)</i></sup> Address of a person or client.
+        phone:
+          maxLength: 15
+          type: string
+          description: |-
+            <sup><i>(ES)</i></sup> Telefono de una persona o cliente.
+            <br><br>
+            <sup><i>(EN)</i></sup> Address of a person or client.
+        gender:
+          maxLength: 10
+          type: string
+          description: |-
+            <sup><i>(ES)</i></sup> Genero de una persona.
+            <br><br>
+            <sup><i>(EN)</i></sup> Gender of a person.
+        birthDate:
+          type: string
+          format: date
+          description: |-
+            <sup><i>(ES)</i></sup> Fecha de nacimiento de una persona.
+            <br><br>
+            <sup><i>(EN)</i></sup> Date of birth of a person.
     Error:
       required:
         - developerMessage
